@@ -349,7 +349,9 @@ bool DynamixelDriver::ping(uint8_t id, uint16_t *get_model_number, const char **
     if (sdk_error.dxl_error != 0)
       if (log != NULL)  *log = packetHandler_->getRxPacketError(sdk_error.dxl_error);
     
-    setTool(model_number, id);
+    if (!setTool(model_number, id, log)) {
+        return false;
+    }
     if (get_model_number != NULL) *get_model_number = model_number;
     return true;
   }
@@ -367,7 +369,9 @@ bool DynamixelDriver::ping(uint8_t id, uint16_t *get_model_number, const char **
     if (sdk_error.dxl_error != 0)
       if (log != NULL)  *log = packetHandler_->getRxPacketError(sdk_error.dxl_error);
     
-    setTool(model_number, id);
+    if (!setTool(model_number, id, log)) {
+        return false;
+    }
     if (get_model_number != NULL) *get_model_number = model_number;
     return true;
   }  
